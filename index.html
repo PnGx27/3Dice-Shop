@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3Dice Production — Catalogo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://www.paypal.com/sdk/js?client-id=BAAyyp81X8874hT6J5WsyTszfxhX6HkaauHlP9HwcxWyH7d8_1CXANVoab1mciSenOqJtzLri671SMg8-A&currency=EUR&locale=it_IT&components=buttons"></script>
+<style>
+  :root{
+    --bg:#0b0b14;
+    --panel:#15151f;
+    --panel-2:#1c1c29;
+    --line:#2a2a3a;
+    --text:#f2f2f7;
+    --muted:#8c8ca3;
+    --magenta:#ff2e9a;
+    --cyan:#23f0db;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Space Grotesk',sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.display{
+    font-family:'Chakra Petch',sans-serif;
+    text-transform:uppercase;
+    letter-spacing:0.03em;
+  }
+  a{color:inherit;}
+
+  /* ---- HUD header ---- */
+  header{
+    position:sticky; top:0; z-index:50;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:14px 20px;
+    background:rgba(11,11,20,0.9);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .brand{display:flex; align-items:center; gap:10px;}
+  .die{
+    width:30px; height:30px;
+    border:2px solid var(--cyan);
+    border-radius:6px;
+    position:relative;
+    transform:rotate(45deg);
+  }
+  .die::before,.die::after{content:'';position:absolute;width:5px;height:5px;border-radius:50%;background:var(--magenta);}
+  .die::before{top:6px;left:6px;}
+  .die::after{bottom:6px;right:6px;}
+  .brand-name{font-size:16px;font-weight:700;}
+  .brand-name span{color:var(--magenta);}
+  .brand-tag{font-size:9px;color:var(--muted);letter-spacing:0.15em;margin-top:-2px;}
+
+  .cart-btn{
+    display:flex; align-items:center; gap:8px;
+    background:var(--panel-2);
+    border:1px solid var(--cyan);
+    color:var(--cyan);
+    padding:8px 14px;
+    border-radius:999px;
+    font-family:'Chakra Petch',sans-serif;
+    font-size:13px;
+    cursor:pointer;
+    letter-spacing:0.05em;
+  }
+  .cart-count{
+    background:var(--magenta);
+    color:#0b0b14;
+    font-weight:700;
+    border-radius:999px;
+    padding:1px 8px;
+    font-size:12px;
+  }
+
+  /* ---- hero ---- */
+  .hero{
+    padding:56px 20px 40px;
+    text-align:center;
+    border-bottom:1px solid var(--line);
+  }
+  .hero h1{
+    font-size:clamp(32px,7vw,56px);
+    margin:0 0 8px;
+    line-height:1.05;
+  }
+  .hero h1 .accent{color:var(--magenta);}
+  .hero p{color:var(--muted); max-width:520px; margin:0 auto; font-size:15px;}
+  .press-start{
+    display:inline-block; margin-top:20px;
+    font-family:'Chakra Petch',sans-serif;
+    font-size:12px; letter-spacing:0.2em;
+    color:var(--cyan);
+    border:1px solid var(--cyan);
+    padding:8px 18px;
+    border-radius:4px;
+    animation:blink 1.6s steps(2) infinite;
+  }
+  @keyframes blink{50%{opacity:0.35;}}
+
+  /* ---- catalog ---- */
+  main{max-width:1100px; margin:0 auto; padding:40px 20px 100px;}
+  .category{margin-bottom:48px;}
+  .category h2{
+    font-size:20px; color:var(--magenta);
+    border-left:3px solid var(--magenta);
+    padding-left:10px;
+    margin-bottom:18px;
+  }
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+    gap:16px;
+  }
+  .card{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:10px;
+    overflow:hidden;
+    display:flex; flex-direction:column;
+    transition:border-color .2s;
+  }
+  .card:hover{border-color:var(--cyan);}
+  .card-img{
+    aspect-ratio:1/1;
+    background:var(--panel-2) center/cover no-repeat;
+    display:flex; align-items:center; justify-content:center;
+    color:var(--muted); font-size:11px; text-align:center; padding:8px;
+  }
+  .card-body{padding:14px; display:flex; flex-direction:column; gap:8px; flex:1;}
+  .card-title{font-family:'Chakra Petch',sans-serif; font-size:14px; font-weight:600;}
+  .card-price{color:var(--cyan); font-weight:600; font-size:15px;}
+  .card select, .card input[type=text]{
+    background:var(--panel-2);
+    border:1px solid var(--line);
+    color:var(--text);
+    border-radius:6px;
+    padding:8px;
+    font-size:13px;
+    font-family:'Space Grotesk',sans-serif;
+    width:100%;
+  }
+  .card select:focus, .card input:focus{outline:1px solid var(--cyan);}
+  .add-btn{
+    margin-top:auto;
+    background:var(--magenta);
+    color:#0b0b14;
+    border:none;
+    padding:10px;
+    border-radius:6px;
+    font-family:'Chakra Petch',sans-serif;
+    font-weight:700;
+    font-size:13px;
+    letter-spacing:0.03em;
+    cursor:pointer;
+  }
+  .add-btn:active{transform:scale(0.98);}
+  .added{background:var(--cyan) !important;}
+
+  /* ---- cart drawer ---- */
+  .overlay{
+    position:fixed; inset:0; background:rgba(0,0,0,0.6);
+    opacity:0; pointer-events:none; transition:opacity .25s;
+    z-index:90;
+  }
+  .overlay.open{opacity:1; pointer-events:auto;}
+  .drawer{
+    position:fixed; top:0; right:0; height:100%; width:min(380px,92vw);
+    background:var(--panel);
+    border-left:1px solid var(--line);
+    z-index:100;
+    transform:translateX(100%);
+    transition:transform .25s ease;
+    display:flex; flex-direction:column;
+  }
+  .drawer.open{transform:translateX(0);}
+  .drawer-head{
+    padding:18px; border-bottom:1px solid var(--line);
+    display:flex; justify-content:space-between; align-items:center;
+  }
+  .drawer-head h3{margin:0; font-size:16px;}
+  .drawer-close{background:none;border:none;color:var(--muted);font-size:20px;cursor:pointer;}
+  .drawer-items{flex:1; overflow-y:auto; padding:12px 18px;}
+  .drawer-item{
+    display:flex; gap:10px; padding:12px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .drawer-item-info{flex:1;}
+  .drawer-item-name{font-size:13px; font-weight:600;}
+  .drawer-item-meta{font-size:11px; color:var(--muted); margin-top:2px;}
+  .drawer-item-row{display:flex; align-items:center; justify-content:space-between; margin-top:6px;}
+  .qty-ctrl{display:flex; align-items:center; gap:8px;}
+  .qty-ctrl button{
+    background:var(--panel-2); border:1px solid var(--line); color:var(--text);
+    width:22px; height:22px; border-radius:4px; cursor:pointer; font-size:13px;
+  }
+  .remove-link{color:var(--magenta); font-size:11px; background:none; border:none; cursor:pointer; text-decoration:underline;}
+  .drawer-empty{color:var(--muted); text-align:center; padding:40px 0; font-size:13px;}
+  .drawer-foot{padding:18px; border-top:1px solid var(--line);}
+  .drawer-total{display:flex; justify-content:space-between; font-family:'Chakra Petch',sans-serif; font-size:16px; margin-bottom:12px;}
+  .checkout-btn{
+    width:100%; background:var(--cyan); color:#0b0b14; border:none;
+    padding:14px; border-radius:6px; font-family:'Chakra Petch',sans-serif;
+    font-weight:700; font-size:14px; letter-spacing:0.05em; cursor:pointer;
+  }
+  .checkout-btn:disabled{opacity:0.4; cursor:not-allowed;}
+  .checkout-note{font-size:10px; color:var(--muted); margin-top:8px; text-align:center;}
+
+  footer{
+    text-align:center; padding:30px 20px; color:var(--muted); font-size:12px;
+    border-top:1px solid var(--line);
+  }
+  footer a{color:var(--cyan); text-decoration:none;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <div class="die"></div>
+    <div>
+      <div class="brand-name">3<span>DICE</span> PRODUCTION</div>
+      <div class="brand-tag">PRESS START TO PRINT</div>
+    </div>
+  </div>
+  <button class="cart-btn" id="cartToggle">
+    🛒 CARRELLO <span class="cart-count" id="cartCount">0</span>
+  </button>
+</header>
+
+<section class="hero">
+  <h1>Dal digitale<br>al <span class="accent">reale</span>.</h1>
+  <p>Prodotti in stampa 3D, personalizzati nei minimi dettagli. Scegli, personalizza, aggiungi al carrello.</p>
+  <div class="press-start">▶ SCEGLI I TUOI PRODOTTI</div>
+</section>
+
+<main id="catalog"></main>
+
+<div class="overlay" id="overlay"></div>
+<aside class="drawer" id="drawer">
+  <div class="drawer-head">
+    <h3>Il tuo carrello</h3>
+    <button class="drawer-close" id="drawerClose">✕</button>
+  </div>
+  <div class="drawer-items" id="drawerItems"></div>
+  <div class="drawer-foot">
+    <div class="drawer-total"><span>Totale</span><span id="drawerTotal">0,00 €</span></div>
+    <div id="paypal-button-container"></div>
+    <div class="checkout-note" id="checkoutNote">Aggiungi un prodotto per procedere al pagamento.</div>
+  </div>
+</aside>
+
+<footer>
+  © 3Dice Production — <a href="https://instagram.com/3diceproduction" target="_blank">Instagram</a> · <a href="#" target="_blank">TikTok</a>
+</footer>
+
+<script>
+/* ==========================================================
+   CATALOGO PRODOTTI
+   - image: metti il percorso della foto in /images/
+   - variants: opzionale, elenco scelte in tendina
+   - customText: opzionale, { label } mostra un campo testo libero
+   ========================================================== */
+const PRODUCTS = [
+  { category: "Personalizzati", id:"porta-terea", name:"Porta Terea Personalizzato", price:1000, image:"images/porta-terea.jpg",
+    customText:{label:"Nome, squadra o simbolo da incidere"} },
+  { category: "Personalizzati", id:"monogram", name:"Monogram Decorativo", price:2000, image:"images/monogram.jpg",
+    variants:["Nero","Bianco","Rosa","Azzurro"],
+    customText:{label:"Nome da scrivere"} },
+  { category: "Personalizzati", id:"portachiavi-nome", name:"Portachiavi con Nome", price:500, image:"images/portachiavi-nome.jpg",
+    customText:{label:"Nome da incidere"} },
+
+  { category: "Portachiavi", id:"chain-ganger", name:"Portachiavi Auto", price:800, image:"images/chain-ganger.jpg",
+    variants:["Volkswagen","BMW","Mercedes-AMG","Alfa Romeo","Audi","Honda"],
+    customText:{label:"Il tuo logo non è in lista? Scrivilo qui (opzionale)"} },
+  { category: "Portachiavi", id:"lama-anime", name:"Portachiavi Lama Anime", price:1100, image:"images/lama-anime.jpg",
+    variants:["Naruto","My Hero Academia","Altra serie"],
+    customText:{label:"Personaggio preferito"} },
+  { category: "Portachiavi", id:"apri-lattina", name:"Portachiavi Apri-Lattina", price:500, image:"images/apri-lattina.jpg",
+    variants:["Car","Ghibli","Punisher","Lemon Soda","Dr Pepper","Nail Care","Just a Girl","Monster","Miffy","Lipstick","Racing Flags","Bomb Pop"] },
+
+  { category: "Blush Smoking Kit", id:"ash-bowl", name:"The Ash Bowl", price:1700, image:"images/ash-bowl.jpg",
+    variants:["Nero","Bianco","Rosa"] },
+  { category: "Blush Smoking Kit", id:"cigarette-case", name:"Cigarette Case", price:1500, image:"images/cigarette-case.jpg",
+    variants:["Nero","Bianco","Rosa"] },
+  { category: "Blush Smoking Kit", id:"lighter-sleeve", name:"Bic Flame Sleeve", price:700, image:"images/lighter-sleeve.jpg",
+    variants:["Rosa","Bianco","Nero"] },
+  { category: "Blush Smoking Kit", id:"smoking-kit", name:"Set Completo (Trio)", price:3500, image:"images/smoking-kit.jpg",
+    variants:["Nero","Bianco","Rosa"] },
+
+  { category: "Setup & Gaming Gear", id:"wave-stand", name:"Wave Controller Stand", price:1600, image:"images/wave-stand.jpg" },
+  { category: "Setup & Gaming Gear", id:"vertex-stand", name:"The Vertex Headphone Stand", price:2000, image:"images/vertex-stand.jpg" },
+  { category: "Setup & Gaming Gear", id:"capsule-stand", name:"The Capsule Headphone Stand", price:2200, image:"images/capsule-stand.jpg" },
+
+  { category: "Casa & Organizer", id:"porta-capsule", name:"Porta Capsule / Porta Tè", price:2200, image:"images/porta-capsule.jpg",
+    variants:["Porta Capsule","Porta Tè / Tisane"] },
+];
+
+/* ========================================================== */
+
+const fmt = c => (c/100).toFixed(2).replace('.',',') + ' €';
+
+function renderCatalog(){
+  const cats = [...new Set(PRODUCTS.map(p=>p.category))];
+  const root = document.getElementById('catalog');
+  root.innerHTML = cats.map(cat => `
+    <div class="category">
+      <h2>${cat}</h2>
+      <div class="grid">
+        ${PRODUCTS.filter(p=>p.category===cat).map(p => productCard(p)).join('')}
+      </div>
+    </div>
+  `).join('');
+}
+
+function productCard(p){
+  const variantSelect = p.variants ? `
+    <select data-role="variant" data-id="${p.id}">
+      ${p.variants.map(v=>`<option value="${v}">${v}</option>`).join('')}
+    </select>` : '';
+  const textInput = p.customText ? `
+    <input type="text" placeholder="${p.customText.label}" data-role="custom" data-id="${p.id}" maxlength="40">` : '';
+  return `
+    <div class="card">
+      <div class="card-img" style="background-image:url('${p.image}')">${p.image ? '' : 'FOTO PRODOTTO'}</div>
+      <div class="card-body">
+        <div class="card-title">${p.name}</div>
+        <div class="card-price">${fmt(p.price)}</div>
+        ${variantSelect}
+        ${textInput}
+        <button class="add-btn" data-id="${p.id}">+ Aggiungi al carrello</button>
+      </div>
+    </div>
+  `;
+}
+
+/* ---- Carrello (in memoria, persistito su localStorage del browser del cliente) ---- */
+let cart = JSON.parse(localStorage.getItem('3dice_cart') || '[]');
+
+function saveCart(){
+  localStorage.setItem('3dice_cart', JSON.stringify(cart));
+  renderCart();
+}
+
+function addToCart(id, btn){
+  const product = PRODUCTS.find(p=>p.id===id);
+  const card = btn.closest('.card');
+  const variantEl = card.querySelector('[data-role="variant"]');
+  const customEl = card.querySelector('[data-role="custom"]');
+  const variant = variantEl ? variantEl.value : null;
+  const customText = customEl ? customEl.value.trim() : null;
+
+  // chiave univoca per distinguere varianti diverse dello stesso prodotto nel carrello
+  const lineKey = id + '|' + (variant||'') + '|' + (customText||'');
+  const existing = cart.find(l => l.lineKey === lineKey);
+  if (existing){
+    existing.qty += 1;
+  } else {
+    cart.push({
+      lineKey, id, name: product.name, price: product.price,
+      variant, customText, qty: 1
+    });
+  }
+  saveCart();
+
+  btn.textContent = '✓ Aggiunto';
+  btn.classList.add('added');
+  setTimeout(()=>{ btn.textContent = '+ Aggiungi al carrello'; btn.classList.remove('added'); }, 1000);
+}
+
+function renderCart(){
+  const itemsEl = document.getElementById('drawerItems');
+  const countEl = document.getElementById('cartCount');
+  const totalEl = document.getElementById('drawerTotal');
+  const note = document.getElementById('checkoutNote');
+
+  const totalQty = cart.reduce((s,l)=>s+l.qty,0);
+  countEl.textContent = totalQty;
+
+  if (cart.length === 0){
+    itemsEl.innerHTML = '<div class="drawer-empty">Il carrello è vuoto.<br>Aggiungi qualche prodotto dal catalogo.</div>';
+    note.textContent = 'Aggiungi un prodotto per procedere al pagamento.';
+  } else {
+    itemsEl.innerHTML = cart.map(l => `
+      <div class="drawer-item">
+        <div class="drawer-item-info">
+          <div class="drawer-item-name">${l.name}</div>
+          <div class="drawer-item-meta">${[l.variant, l.customText].filter(Boolean).join(' · ') || ''}</div>
+          <div class="drawer-item-row">
+            <div class="qty-ctrl">
+              <button data-act="dec" data-key="${l.lineKey}">−</button>
+              <span>${l.qty}</span>
+              <button data-act="inc" data-key="${l.lineKey}">+</button>
+            </div>
+            <strong>${fmt(l.price * l.qty)}</strong>
+          </div>
+          <button class="remove-link" data-act="remove" data-key="${l.lineKey}">Rimuovi</button>
+        </div>
+      </div>
+    `).join('');
+    note.textContent = 'Pagamento sicuro con PayPal. Indirizzo di spedizione richiesto al passo successivo.';
+  }
+
+  const total = cart.reduce((s,l)=>s+l.price*l.qty,0);
+  totalEl.textContent = fmt(total);
+  renderPayPalButtons();
+}
+
+document.getElementById('catalog').addEventListener('click', e=>{
+  if (e.target.matches('.add-btn')){
+    addToCart(e.target.dataset.id, e.target);
+  }
+});
+
+document.getElementById('drawerItems').addEventListener('click', e=>{
+  const key = e.target.dataset.key;
+  if (!key) return;
+  const line = cart.find(l=>l.lineKey===key);
+  if (!line) return;
+  if (e.target.dataset.act === 'inc') line.qty += 1;
+  if (e.target.dataset.act === 'dec') { line.qty -= 1; if (line.qty<=0) cart = cart.filter(l=>l.lineKey!==key); }
+  if (e.target.dataset.act === 'remove') cart = cart.filter(l=>l.lineKey!==key);
+  saveCart();
+});
+
+/* ---- apertura/chiusura drawer ---- */
+const drawer = document.getElementById('drawer');
+const overlay = document.getElementById('overlay');
+function openDrawer(){ drawer.classList.add('open'); overlay.classList.add('open'); }
+function closeDrawer(){ drawer.classList.remove('open'); overlay.classList.remove('open'); }
+document.getElementById('cartToggle').onclick = openDrawer;
+document.getElementById('drawerClose').onclick = closeDrawer;
+overlay.onclick = closeDrawer;
+
+/* ---- checkout: pulsanti PayPal generati dinamicamente in base al carrello ---- */
+function renderPayPalButtons(){
+  const container = document.getElementById('paypal-button-container');
+  if (!container) return;
+  container.innerHTML = ''; // pulisce eventuali pulsanti precedenti
+
+  if (cart.length === 0 || typeof paypal === 'undefined') return;
+
+  const totalCents = cart.reduce((s,l)=>s+l.price*l.qty,0);
+  const totalStr = (totalCents/100).toFixed(2);
+
+  paypal.Buttons({
+    style: { layout: 'vertical', color: 'gold', shape: 'rect', label: 'paypal' },
+
+    createOrder: function(data, actions){
+      return actions.order.create({
+        intent: 'CAPTURE',
+        purchase_units: [{
+          amount: {
+            currency_code: 'EUR',
+            value: totalStr,
+            breakdown: {
+              item_total: { currency_code: 'EUR', value: totalStr }
+            }
+          },
+          items: cart.map(l => ({
+            name: l.name.substring(0,127),
+            description: [l.variant, l.customText].filter(Boolean).join(' · ').substring(0,127) || undefined,
+            unit_amount: { currency_code: 'EUR', value: (l.price/100).toFixed(2) },
+            quantity: String(l.qty)
+          }))
+        }],
+        application_context: {
+          shipping_preference: 'GET_FROM_FILE',
+          brand_name: '3Dice Production'
+        }
+      });
+    },
+
+    onApprove: function(data, actions){
+      return actions.order.capture().then(function(){
+        localStorage.removeItem('3dice_cart');
+        window.location.href = 'successo.html';
+      });
+    },
+
+    onError: function(err){
+      console.error(err);
+      alert('Si è verificato un problema con il pagamento, riprova tra poco.');
+    }
+
+  }).render('#paypal-button-container');
+}
+
+renderCatalog();
+renderCart();
+</script>
+</body>
+</html>
