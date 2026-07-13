@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ordine confermato — 3Dice Production</title>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=Space+Grotesk&display=swap" rel="stylesheet">
+<style>
+  body{
+    margin:0; min-height:100vh; display:flex; align-items:center; justify-content:center;
+    background:#0b0b14; color:#f2f2f7; font-family:'Space Grotesk',sans-serif; text-align:center; padding:20px;
+  }
+  .box{max-width:420px;}
+  h1{font-family:'Chakra Petch',sans-serif; color:#23f0db; text-transform:uppercase; letter-spacing:0.03em;}
+  p{color:#8c8ca3; font-size:15px; line-height:1.6;}
+  a{
+    display:inline-block; margin-top:20px; background:#ff2e9a; color:#0b0b14;
+    text-decoration:none; padding:12px 24px; border-radius:6px;
+    font-family:'Chakra Petch',sans-serif; font-weight:700; letter-spacing:0.05em;
+  }
+</style>
+</head>
+<body>
+  <div class="box">
+    <h1>✓ Ordine ricevuto</h1>
+    <p>Grazie per il tuo acquisto! Riceverai una email di conferma a breve. Ti contatteremo per eventuali dettagli sulla personalizzazione.</p>
+    <a href="./">Torna al catalogo</a>
+  </div>
+  <script>
+    // Svuota il carrello dopo un pagamento riuscito
+    localStorage.removeItem('3dice_cart');
+  </script>
+</body>
+</html>
