@@ -101,6 +101,8 @@
     border-radius:4px;
     animation:blink 1.6s steps(2) infinite;
   }
+  html{scroll-behavior:smooth;}
+  a.press-start{text-decoration:none;}
   @keyframes blink{50%{opacity:0.35;}}
 
   /* ---- catalog ---- */
@@ -236,7 +238,10 @@
 <section class="hero">
   <h1>Dal digitale<br>al <span class="accent">reale</span>.</h1>
   <p>Prodotti in stampa 3D, personalizzati nei minimi dettagli. Scegli, personalizza, aggiungi al carrello.</p>
-  <div class="press-start">▶ SCEGLI I TUOI PRODOTTI</div>
+  <div class="hero-actions">
+    <a href="#catalog" class="press-start">▶ SCEGLI I TUOI PRODOTTI</a>
+    <a href="https://cataloghi.my.canva.site/catalogo-3dice" target="_blank" rel="noopener" class="lookbook-btn">📖 SFOGLIA IL LOOKBOOK</a>
+  </div>
 </section>
 
 <main id="catalog"></main>
